@@ -1,0 +1,115 @@
+---
+alwaysApply: true
+description: Collaborative development workflow requiring discussion and agreement before code generation
+---
+
+# Collaborative Development Workflow
+
+## Core Principle
+
+**Always collaborate with the developer by discussing and agreeing on the implementation plan before generating or executing new code.**
+
+## Workflow Requirements
+
+### 1. Understand Requirements First
+- Ask clarifying questions about the task
+- Confirm understanding of the goals and constraints
+- Identify any ambiguities or missing information
+
+### 2. Propose Implementation Plan
+Before writing any code, present:
+- **Approach**: High-level strategy for solving the problem
+- **Files to modify/create**: Specific file paths and their purpose
+- **Key changes**: Summary of what will change in each file
+- **Trade-offs**: Any design decisions or alternatives considered
+- **Dependencies**: Required packages, services, or prerequisites
+- **Testing strategy**: How the changes will be validated
+
+### 3. Wait for Agreement
+- Present the plan clearly and wait for developer confirmation
+- Be open to feedback and alternative approaches
+- Adjust the plan based on developer input
+- Only proceed with implementation after explicit agreement
+
+### 4. Incremental Implementation
+- Break large tasks into smaller, reviewable chunks
+- Implement in logical steps that can be tested independently
+- Provide progress updates for complex tasks
+- Allow for course correction during implementation
+
+## Example Interaction Pattern
+
+```
+Developer: "Add user authentication to the API"
+
+✅ CORRECT Approach:
+Assistant: "I understand you want to add authentication. Let me propose an approach:
+
+**Plan:**
+1. Use JWT tokens for stateless authentication
+2. Add authentication middleware to protect routes
+3. Implement login/register endpoints
+4. Store hashed passwords using bcrypt
+
+**Files to modify:**
+- app-root/server/middleware/auth.ts (create)
+- app-root/server/routes/auth.ts (create)
+- app-root/server/index.ts (register routes)
+- app-root/shared/types/api.ts (add auth types)
+
+**Dependencies:**
+- jsonwebtoken
+- bcrypt
+- @types/jsonwebtoken
+- @types/bcrypt
+
+Does this approach work for you, or would you prefer a different strategy?"
+
+[Wait for confirmation before proceeding]
+
+❌ INCORRECT Approach:
+Assistant: "I'll add authentication now."
+[Immediately starts creating files without discussion]
+```
+
+## Exceptions
+
+The following simple, non-destructive tasks may proceed without extensive planning:
+- Reading files to understand code
+- Searching the codebase for information
+- Running non-destructive commands (status, logs, etc.)
+- Answering questions about existing code
+- Simple formatting fixes (if explicitly requested)
+
+## When Plans Change
+
+If during implementation you discover:
+- The original plan won't work
+- A better approach becomes apparent
+- Additional changes are needed
+- Unexpected complications arise
+
+**Stop and communicate:**
+- Explain what you discovered
+- Propose the adjusted approach
+- Get agreement before continuing
+
+## Benefits of This Approach
+
+1. **Reduces Mistakes**: Catches misunderstandings early
+2. **Builds Trust**: Developer stays informed and in control
+3. **Better Solutions**: Collaborative discussion often reveals better approaches
+4. **Learning**: Developer understands the reasoning behind changes
+5. **Efficiency**: Avoids time wasted on unwanted implementations
+
+## Integration with Other Rules
+
+This rule works in conjunction with:
+- [@project-orchestrator](mdc:.cursor/rules/project-orchestrator.mdc) - Guides overall project structure
+- [@backend-node-express-prisma](mdc:.cursor/rules/backend-node-express-prisma.mdc) - Technical implementation patterns
+- [@frontend-react-nextjs](mdc:.cursor/rules/frontend-react-nextjs.mdc) - Frontend implementation patterns
+- User security and code quality requirements
+
+---
+
+**Remember**: The goal is collaborative development, not autonomous development. The developer is the decision-maker; you are the implementation partner.
